@@ -1,12 +1,11 @@
-Package: test
+Package: moranfast
 Type: Package
-Title: What the Package Does in One 'Title Case' Line
+Title: Conduct a Quick and Memory-Efficient Moran's I Test
 Version: 1.0
 Date: 2020-07-27
-Author: Your Name
-Maintainer: Your Name <your@email.com>
-Description: One paragraph description of what the package does as one
-        or more full sentences.
+Author: Matthew Cooper
+Maintainer: Matthew Cooper <mw.coop.r@gmail.com>
+Description: Conducts a Moran's I test quickly and memory-efficiently for point data
 License: GPL (>= 2)
 Imports: Rcpp (>= 1.0.4)
 LinkingTo: Rcpp
