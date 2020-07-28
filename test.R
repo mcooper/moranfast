@@ -2,7 +2,8 @@ library(ape)
 library(tidyverse)
 library(Rcpp)
 
-dat <- read.csv('~/mortalityblob/gbv/GBV_sel.csv')
+dat <- read.csv('~/mortalityblob/gbv/GBV_sel.csv') %>%
+  filter(country=='AO')
 
 mod <- glm(viol_phys ~ plos_age + woman_literate + is_married + plos_births + 
            plos_hhsize + plos_rural + husband_education_level + plos_husband_age + 

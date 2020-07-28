@@ -31,34 +31,44 @@ NumericVector normalize(NumericVector x)
 }
 
 // [[Rcpp::export]]
-double calc_moran(NumericVector x, NumericVector c1, NumericVector c2)
+NumericVector calc_moran(NumericVector x, NumericVector c1, NumericVector c2)
 {
   // Easy variables to calculate
   NumericVector x_norm = normalize(x);
   double N = x.length();
   double denom = sum(x_norm*x_norm);
  
-  Rcout << "The value of N : " << N << "\n";
-  Rcout << "The value of denom : " << denom << "\n";
-
   // Variables to calculate through iteration
   double W = 0;
   double num = 0;
+  double S1 = 0;
+  double S2 = 0; 
 
   for(int i = 0; i < N; ++i) {
+    double S2_a = 0;
     for(int j = 0; j < N; ++j){
       double w_ij = distanceCalculate(c1[i], c2[i], c1[j], c2[j]);
       W += w_ij;
 
       double w_x1_x2 = w_ij * x_norm[i] * x_norm[j];
       num += w_x1_x2;
-    }
-  }
- 
-  Rcout << "The value of W : " << W << "\n";
-  Rcout << "The value of num : " << num << "\n";
 
+      S1 += pow(2*w_ij, 2);
+
+      S2_a += w_ij;
+    }
+
+    S2 += pow(2*S2_a, 2);
+  }
+
+  S1 = S1/2;
+
+  double ei = -(1/(N - 1));
+  double k = (sum(pow(x_norm, 4)/N)/pow(denom/N, 2));
+  double sd = sqrt((N*((pow(N, 2) - 3*N + 3)*S1 - N*S2 + 3*pow(W, 2)) - k*(N*(N-1)*S1 - 2*N*S2 + 6*pow(W, 2)))/((N - 1)*(N - 2)*(N - 3)*pow(W, 2)) - pow(ei, 2));
   double I = (N/W)*(num/denom);
 
-  return(I);
+  NumericVector result = {I, ei, sd};
+
+  return(result);
 }
