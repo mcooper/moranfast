@@ -5,23 +5,53 @@
 
 using namespace Rcpp;
 
-// rcpp_hello_world
-List rcpp_hello_world();
-RcppExport SEXP _test_rcpp_hello_world() {
+// distanceCalculate
+double distanceCalculate(double x1, double y1, double x2, double y2);
+RcppExport SEXP _moranfast_distanceCalculate(SEXP x1SEXP, SEXP y1SEXP, SEXP x2SEXP, SEXP y2SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(rcpp_hello_world());
+    Rcpp::traits::input_parameter< double >::type x1(x1SEXP);
+    Rcpp::traits::input_parameter< double >::type y1(y1SEXP);
+    Rcpp::traits::input_parameter< double >::type x2(x2SEXP);
+    Rcpp::traits::input_parameter< double >::type y2(y2SEXP);
+    rcpp_result_gen = Rcpp::wrap(distanceCalculate(x1, y1, x2, y2));
+    return rcpp_result_gen;
+END_RCPP
+}
+// normalize
+NumericVector normalize(NumericVector x);
+RcppExport SEXP _moranfast_normalize(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(normalize(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// calc_moran
+NumericVector calc_moran(NumericVector x, NumericVector c1, NumericVector c2);
+RcppExport SEXP _moranfast_calc_moran(SEXP xSEXP, SEXP c1SEXP, SEXP c2SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type c1(c1SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type c2(c2SEXP);
+    rcpp_result_gen = Rcpp::wrap(calc_moran(x, c1, c2));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_test_rcpp_hello_world", (DL_FUNC) &_test_rcpp_hello_world, 0},
+    {"_moranfast_distanceCalculate", (DL_FUNC) &_moranfast_distanceCalculate, 4},
+    {"_moranfast_normalize", (DL_FUNC) &_moranfast_normalize, 1},
+    {"_moranfast_calc_moran", (DL_FUNC) &_moranfast_calc_moran, 3},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_test(DllInfo *dll) {
+RcppExport void R_init_moranfast(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }
