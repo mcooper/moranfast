@@ -1,4 +1,4 @@
-# moranfast
+# moranfast: Calculate Moran's I quickly with low memory footprint for Big Data.
 This package calculates the Moran's I test statistic of spatial autocorrelation for point observations.
 
 This package is still in development.  Right now it just does one thing (calculates Moran's I).
