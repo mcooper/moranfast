@@ -6,7 +6,7 @@ Date: 2020-07-27
 Author: Matthew Cooper
 Maintainer: Matthew Cooper <mw.coop.r@gmail.com>
 Description: Conducts a Moran's I test quickly and memory-efficiently for point data
-License: GPL (>= 2)
+License: MIT + file LICENSE
 Imports: Rcpp (>= 1.0.4)
 LinkingTo: Rcpp
 RoxygenNote: 7.1.0
